@@ -23,7 +23,7 @@ public class Product {
     }
     public Product(int productID, int stockQuantity, double price, String name, LocalDate expiryDate, boolean isPrescriptionRequired) {
         setProductID(productID);
-        setStockQuatity(stockQuantity);
+        setStockQuantity(stockQuantity);
         setPrice(price);
         setName(name);
         setExpiryDate(expiryDate);
@@ -119,3 +119,4 @@ public class Product {
     }
    
 }
+
