@@ -9,6 +9,7 @@ public class Sale {
    private LocalDate saleDate;
    private HashMap<Product, Integer> soldItems= new HashMap<>();;
    private double totalAmount;
+   private String payment;
    
 //--------------- constructor -------------
    
@@ -18,14 +19,16 @@ public class Sale {
         this.saleDate = LocalDate.now();
         this.soldItems = new HashMap<>();
         this.totalAmount = 0.0;
+        this.payment="Cash";
     }
 
-    public Sale(String saleID, String employeeId, LocalDate saleDate, HashMap<Product, Integer> soldItems, double totalAmount) {
+    public Sale(String saleID, String employeeId, LocalDate saleDate, HashMap<Product, Integer> soldItems, double totalAmount ,String payment ) {
         setSaleID(saleID);
         setEmployeeId(employeeId);
         setSaleDate(saleDate);
         setSoldItems(soldItems);
         setTotalAmount(totalAmount);
+        setPayment(payment);
     }
 
 //----------------- setter ----------------
@@ -50,6 +53,10 @@ public class Sale {
         this.totalAmount = totalAmount;
     }
     
+    public void setPayment(String payment) {
+        this.payment = payment;
+    }
+    
 //----------------- getters ----------------
 
     public String getSaleID() {
@@ -70,6 +77,10 @@ public class Sale {
 
     public double getTotalAmount() {
         return totalAmount;
+    }
+    
+    public String getPayment() {
+        return payment;
     }
 //----------------- methods ----------------
     
@@ -114,6 +125,7 @@ public class Sale {
         sb.append("Sale ID: ").append(saleID).append("\n");
         sb.append("Date: ").append(this.getSaleDate()).append("\n");
         sb.append("Employee ID: ").append(this.getEmployeeId()).append("\n");
+        sb.append("Payment Method: ").append(this.getPayment()).append("\n");
         sb.append("-----------------------------\n");
 
         if (soldItems == null || soldItems.isEmpty()) {
@@ -140,6 +152,6 @@ public class Sale {
 
         return sb.toString();
     }
+}
 
-  }
 
