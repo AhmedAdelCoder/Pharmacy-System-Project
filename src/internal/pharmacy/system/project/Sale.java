@@ -7,10 +7,18 @@ import java.util.Map;
 public class Sale {
    private String saleID,employeeId;
    private LocalDate saleDate;
-   private HashMap<Product, Integer> soldItems;
+   private HashMap<Product, Integer> soldItems= new HashMap<>();;
    private double totalAmount;
    
 //--------------- constructor -------------
+   
+    public Sale() {
+        this.saleID = "";
+        this.employeeId = "";
+        this.saleDate = LocalDate.now();
+        this.soldItems = new HashMap<>();
+        this.totalAmount = 0.0;
+    }
 
     public Sale(String saleID, String employeeId, LocalDate saleDate, HashMap<Product, Integer> soldItems, double totalAmount) {
         setSaleID(saleID);
@@ -76,7 +84,7 @@ public class Sale {
         calculateTotal();
     }
       
-    public double applyDiscount(int totalBeforeDiscount) {
+    public double applyDiscount(double totalBeforeDiscount) {
         double rate = 0.0;
         if (totalBeforeDiscount >= 1000) rate = 0.10;
         else if (totalBeforeDiscount >= 500) rate = 0.05;
@@ -100,57 +108,38 @@ public class Sale {
     return total;
 }
 
+    public String printReceipt() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("========== INVOICE ==========\n");
+        sb.append("Sale ID: ").append(saleID).append("\n");
+        sb.append("Date: ").append(this.getSaleDate()).append("\n");
+        sb.append("Employee ID: ").append(this.getEmployeeId()).append("\n");
+        sb.append("-----------------------------\n");
 
-   
-           public void printReceipt() {
-        System.out.println("========== INVOICE ==========");
-        System.out.println("Sale ID: " + saleID);
-        System.out.println("Date: " + this.getSaleDate());
-        System.out.println("Employee ID: " + this.getEmployeeId());
-        System.out.println("-----------------------------");
+        if (soldItems == null || soldItems.isEmpty()) {
+            sb.append("No items sold.\n");
+            sb.append("=============================\n");
+            return sb.toString();
+        }
+
         for (Map.Entry<Product, Integer> entry : soldItems.entrySet()) {
             Product p = entry.getKey();
             int qty = entry.getValue();
-            System.out.println(p.getName() + " x " + qty + " = " + (p.getPrice() * qty));
+            sb.append(p.getName())
+            .append(" x ")
+            .append(qty)
+            .append(" = ")
+            .append(p.getPrice() * qty)
+            .append("\n");
         }
-        System.out.println("-----------------------------");
-        System.out.println("Total (before discount): " + getTotalBeforeDiscount());
-        System.out.println("Total (after discount): " + totalAmount);
-        System.out.println("=============================");
+
+        sb.append("-----------------------------\n");
+        sb.append("Total (before discount): ").append(getTotalBeforeDiscount()).append("\n");
+        sb.append("Total (after discount): ").append(totalAmount).append("\n");
+        sb.append("=============================\n");
+
+        return sb.toString();
     }
-           
-    
-}
 
+  }
 
-
-
-//    public void calculateTotal() {
-//        totalAmount = 0.0;
-//        for (Map.Entry<Product, Integer> entry : itemsSold.entrySet()) {
-//            Product p = entry.getKey();
-//            int quantity = entry.getValue();
-//            totalAmount += p.getPrice() * quantity;
-//        }
-//        totalAmount = Discount(totalAmount); // Apply discount automatically
-//    }
-
-
-//   public String printReceipt() {
-//        StringBuilder sb = new StringBuilder();
-//        sb.append("===== Invoice =====\n");
-//        sb.append("Sale ID: ").append(saleID).append("\n");
-//        sb.append("Date: ").append(date).append("\n");
-//        sb.append("Employee: ").append(employeeID).append("\n");
-//        sb.append("-------------------\n");
-//        for (Map.Entry<Product, Integer> e : itemsSold.entrySet()) {
-//            sb.append(e.getKey().getName())
-//              .append(" x").append(e.getValue())
-//              .append(" = ").append(e.getKey().getPrice() * e.getValue())
-//              .append("\n");
-//        }
-//        sb.append("-------------------\n");
-//        sb.append("Total: ").append(totalAmount).append("\n");
-//        sb.append("===================\n");
-//        return sb.toString();
-//    }
