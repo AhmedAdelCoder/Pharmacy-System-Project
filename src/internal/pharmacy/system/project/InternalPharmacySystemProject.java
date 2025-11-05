@@ -11,7 +11,7 @@ public class InternalPharmacySystemProject {
 
     
     public static void main(String[] args) {
- Product p1 = new Product(1, 50, 2000.0, "Panadol", LocalDate.of(2025, 12, 31), false);
+ Product p1 = new Product(1, 50, 20.0, "Panadol", LocalDate.of(2025, 12, 31), false);
         Product p2 = new Product(2, 30, 25.0, "Vitamin C", LocalDate.of(2026, 5, 15), false);
 
           
