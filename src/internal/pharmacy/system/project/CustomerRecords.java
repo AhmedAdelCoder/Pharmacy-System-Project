@@ -7,7 +7,7 @@ public class CustomerRecords extends Customer{
     private double amountDue;
     private String lastPaymentDate;
 
-//--------------------- Constructors -------------------
+//------------------------------- Constructors ---------------------------------
     public CustomerRecords() {
         super();
         this.amountDue = 0.0;
@@ -20,7 +20,7 @@ public class CustomerRecords extends Customer{
         setLastPaymentDate(lastPaymentDate); 
     }
 
-//----------------- Setter ------------------------
+//-------------------------------Setter ----------------------------------------
     public void setAmountDue(double amountDue) {
         this.amountDue = amountDue;
     }
@@ -29,7 +29,7 @@ public class CustomerRecords extends Customer{
         this.lastPaymentDate = lastPaymentDate;
     }
 
-//----------------- Getters ------------------
+//--------------------------- Getters------------------------ ------------------
     
     public double getAmountDue() {
         return amountDue;
@@ -39,7 +39,7 @@ public class CustomerRecords extends Customer{
         return lastPaymentDate;
     }
 
-//------------------ Methods ------------------
+//------------------------------- Methods --------------------------------------
     
     public void payDueAmount(double amount) {
         if (amount > 0 && amount <= amountDue) {
