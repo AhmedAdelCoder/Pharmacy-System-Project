@@ -9,24 +9,24 @@ public class Inventory {
     private ArrayList <Product> products ;
     private String lastUpdateDate;
     
-//Constructor
+//------------------------------ Constructor  ----------------------------------
     public Inventory(){
         products = new ArrayList<>();
         lastUpdateDate = LocalDate.now().toString();
     }
     
-//setter
+//--------------------------------- setters ------------------------------------
     public void setProduct(Product p ) {
         products.add(p);
         lastUpdateDate = LocalDate.now().toString();
     }
     
-//getter
+//--------------------------------- Getters ------------------------------------
     public ArrayList<Product> getProductList() {
         return products;
     }
     
-//method--------------------------------------------------------
+///------------------------------- method ---------------------------------------
     public Product SearchProduct(String name){
         for(Product p : products ){
             if(p.getName().equalsIgnoreCase(name)){
