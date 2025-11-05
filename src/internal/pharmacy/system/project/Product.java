@@ -3,8 +3,7 @@ package internal.pharmacy.system.project;
 import java.time.LocalDate;
 
 public class Product {
-    
-    // Data member   
+      
     private int productID;
     private int stockQuantity;
     private double price;
@@ -12,7 +11,7 @@ public class Product {
     private LocalDate expiryDate;
     private boolean isPrescriptionRequired;
     
-// Constructor
+//------------------------------ Constructor  ----------------------------------
     public Product(){
         this.name="";
         this.expiryDate = null;
@@ -30,7 +29,7 @@ public class Product {
         setIsPrescriptionRequired(isPrescriptionRequired);
     }   
     
-//setters
+//--------------------------------- setters ------------------------------------
     public void setProductID(int productID) {
         this.productID = productID;
     }
@@ -55,7 +54,7 @@ public class Product {
         this.isPrescriptionRequired = isPrescriptionRequired;
     }
     
-// Getters
+//--------------------------------- Getters ------------------------------------
     public int getProductID() {
         return productID;
     }
@@ -80,19 +79,19 @@ public class Product {
         return isPrescriptionRequired;
     }
     
-//updateStock
+//--------------------------------- method -------------------------------------
     public void updateStock(int quatity){
        stockQuantity += quatity;
        System.out.println("Stock updated successfully. New quantity: " +stockQuantity);
     }
     
-// updatePrice
+
     public void updatePrice(double newPrice){
         price = newPrice;
         System.out.println("Price updated to: " + price);
     }
     
-// checkExpiry 
+
     public boolean checkExpiry() {
         if (expiryDate == null) {
              System.out.println("No expiry date set for this product.");
@@ -108,7 +107,6 @@ public class Product {
         }
     }
  
-//Display
      public void display() {
         System.out.println("Product ID: " + productID);
         System.out.println("Name: " + name);
