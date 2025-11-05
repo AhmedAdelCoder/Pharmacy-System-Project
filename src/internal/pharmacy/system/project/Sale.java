@@ -11,7 +11,7 @@ public class Sale {
    private double totalAmount;
    private String payment;
    
-//--------------- constructor -------------
+//------------------------------- constructor ----------------------------------
    
     public Sale() {
         this.saleID = "";
@@ -31,7 +31,7 @@ public class Sale {
         setPayment(payment);
     }
 
-//----------------- setter ----------------
+//------------------------------ setter ----------------------------------------
 
     public void setSaleID(String saleID) {
         this.saleID = saleID;
@@ -57,7 +57,7 @@ public class Sale {
         this.payment = payment;
     }
     
-//----------------- getters ----------------
+//------------------------------ getters ---------------------------------------
 
     public String getSaleID() {
         return saleID;
@@ -82,7 +82,7 @@ public class Sale {
     public String getPayment() {
         return payment;
     }
-//----------------- methods ----------------
+//------------------------------- methods --------------------------------------
     
  
     public void addItem(Product p, int quantity) {
