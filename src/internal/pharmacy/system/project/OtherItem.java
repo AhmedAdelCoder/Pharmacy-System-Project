@@ -8,24 +8,24 @@ import java.time.LocalDate;
 
     class OtherItem extends Product{
         private String category;
-// Constructor
+//------------------------------ Constructor  ----------------------------------
         public OtherItem (){super();}
         public OtherItem(int productID, int stockQuantity,double price,String name,LocalDate expiryDate,boolean isPrescriptionRequired,String category){
             super(productID, stockQuantity, price, name, expiryDate, isPrescriptionRequired);
             setCategory(category);
         };
         
-//Setter       
+//--------------------------------- setters ------------------------------------ 
     public void setCategory(String category) {
         this.category = category;
     }
     
-//getter
+//--------------------------------- Getters ------------------------------------
     public String getCategory() {
         return category;
     }
     
-//display otheritem
+//------------------------------- method ---------------------------------------
     @Override
     public void display(){
         super.display();
