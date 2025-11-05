@@ -9,24 +9,24 @@ import java.time.LocalDate;
 public class Drug extends Product{
     private String dosage;
     
-// Constrcutor
+//------------------------------ Constructor  ----------------------------------
     public Drug( ){super();}
     public Drug (int productID, int stockQuantity,double price,String name,LocalDate expiryDate,boolean isPrescriptionRequired,String dosage){
         super(productID, stockQuantity, price, name, expiryDate, isPrescriptionRequired);
         setDosage(dosage);
     }
     
-//Setter
+//--------------------------------- setters ------------------------------------
     public void setDosage(String dosage) {
         this.dosage = dosage;
     }
     
-// Getter
+//--------------------------------- Getters ------------------------------------
     public String getDosage() {
         return dosage;
     }
-    
-//display Drug
+//------------------------------- method ---------------------------------------
+
     @Override
     public void display(){
         super.display();
