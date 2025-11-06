@@ -44,7 +44,7 @@ public class CustomerRecords extends Customer{
     public void payDueAmount(double amount) {
         if (amount > 0 && amount <= amountDue) {
             amountDue -= amount;
-            System.out.println("Payment of " + amount + " accepted. Remaining balance: " + amountDue);
+            System.out.println("Payment of " + amount + " accepted. Remaining Due: " + amountDue);
         } else if (amount > amountDue) {
             System.out.println("Payment exceeds due amount. Please pay only: " + amountDue);
         } else {

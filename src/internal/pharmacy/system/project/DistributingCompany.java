@@ -19,9 +19,9 @@ public class DistributingCompany {
             throw new IllegalArgumentException("Company ID and name required.");
         }
         this.companyID = companyID.trim();
-        this.name = name.trim();
-        this.email = email != null ? email.trim() : "";
-        this.location = location != null ? location.trim() : "";
+        setName(name);
+        setEmail(email);
+        setLocation(location);
         this.suppliedProducts = new ArrayList<>();
     }
 
@@ -35,9 +35,10 @@ public class DistributingCompany {
     }
 
     public void setName(String name) {
-        if (name != null && !name.isBlank()) {
-            this.name = name.trim();
+        if(name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Name cannot be null or blank.");
         }
+        this.name = name.trim();
     }
 
     public String getEmail() {
@@ -115,7 +116,7 @@ public class DistributingCompany {
             inInventory.setStockQuantity(newQty);
             return true;
         } else {
-            inventory.addDrugs(supplied);
+            inventory.addProduct(supplied);
 
             Product added = inventory.searchById(productID);
             if (added != null) {
