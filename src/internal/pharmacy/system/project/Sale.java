@@ -99,7 +99,7 @@ public class Sale {
         double rate = 0.0;
         if (totalBeforeDiscount >= 1000) rate = 0.10;
         else if (totalBeforeDiscount >= 500) rate = 0.05;
-        return  totalBeforeDiscount -(totalBeforeDiscount * rate);
+        return  Math.round(totalBeforeDiscount -(totalBeforeDiscount * rate));
     }
 
     
@@ -108,7 +108,8 @@ public class Sale {
     for (Map.Entry<Product, Integer> e : soldItems.entrySet()) {
         totalBeforeDiscount += e.getKey().getPrice() * e.getValue();
     }
-    totalAmount = applyDiscount(totalBeforeDiscount);
+    totalAmount =applyDiscount(totalBeforeDiscount) ;
+    
 }
     
     public double getTotalBeforeDiscount() {
@@ -120,37 +121,48 @@ public class Sale {
 }
 
     public String printReceipt() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("========== INVOICE ==========\n");
-        sb.append("Sale ID: ").append(saleID).append("\n");
-        sb.append("Date: ").append(this.getSaleDate()).append("\n");
-        sb.append("Employee ID: ").append(this.getEmployeeId()).append("\n");
-        sb.append("Payment Method: ").append(this.getPayment()).append("\n");
-        sb.append("-----------------------------\n");
+    StringBuilder sb = new StringBuilder();
+    sb.append("========== INVOICE ==========\n");
+    sb.append("Sale ID: ").append(saleID).append("\n");
+    sb.append("Date: ").append(this.getSaleDate()).append("\n");
+    sb.append("Employee ID: ").append(this.getEmployeeId()).append("\n");
+    sb.append("Payment Method: ").append(this.getPayment()).append("\n");
+    sb.append("-----------------------------\n");
 
-        if (soldItems == null || soldItems.isEmpty()) {
-            sb.append("No items sold.\n");
-            sb.append("=============================\n");
-            return sb.toString();
-        }
-
-        for (Map.Entry<Product, Integer> entry : soldItems.entrySet()) {
-            Product p = entry.getKey();
-            int qty = entry.getValue();
-            sb.append(p.getName())
-            .append(" x ")
-            .append(qty)
-            .append(" = ")
-            .append(p.getPrice() * qty)
-            .append("\n");
-        }
-
-        sb.append("-----------------------------\n");
-        sb.append("Total (before discount): ").append(getTotalBeforeDiscount()).append("\n");
-        sb.append("Total (after discount): ").append(totalAmount).append("\n");
+    if (soldItems == null || soldItems.isEmpty()) {
+        sb.append("No items sold.\n");
         sb.append("=============================\n");
-
         return sb.toString();
+    }
+
+    int totalItems = 0;
+    double totalBeforeDiscount = 0.0;
+
+    for (Map.Entry<Product, Integer> entry : soldItems.entrySet()) {
+        Product p = entry.getKey();
+        int qty = entry.getValue();
+        totalItems += qty;
+        double lineTotal = p.getPrice() * qty;
+        totalBeforeDiscount += lineTotal;
+
+        sb.append(p.getName())
+          .append(" x ")
+          .append(qty)
+          .append(" = ")
+          .append(lineTotal)
+          .append("\n");
+    }
+
+    double discount = totalBeforeDiscount - applyDiscount(totalBeforeDiscount);
+
+    sb.append("-----------------------------\n");
+    sb.append("Total items sold: ").append(totalItems).append("\n");
+    sb.append("Total (before discount): ").append(totalBeforeDiscount).append("\n");
+    sb.append("Discount applied: ").append(discount).append("\n");
+    sb.append("Total (after discount): ").append(totalAmount).append("\n");
+    sb.append("=============================\n");
+
+    return sb.toString();
     }
 }
 
