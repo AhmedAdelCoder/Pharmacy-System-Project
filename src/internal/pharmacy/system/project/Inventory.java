@@ -59,6 +59,25 @@ public class Inventory {
             }
         }
     }
+
+    public Product searchById(int productID) {
+        for (Product p : products) {
+            if (p.getProductID() == productID) {
+                return p;
+            }
+        }
+        return null;
+    }
+    
+    public void addDrugs(Product p) {
+        if (p == null) {
+            System.out.println("Cannot add null product to inventory.");
+            return;
+        }
+        products.add(p);
+        lastUpdateDate = LocalDate.now().toString();
+    }
+
     
     public void removeProduct(int productID) {
         products.removeIf(p -> p.getProductID() == productID);
