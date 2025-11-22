@@ -11,13 +11,16 @@ public class Drug extends Product{
     
 //------------------------------ Constructor  ----------------------------------
     public Drug( ){super();}
-    public Drug (int productID, int stockQuantity,double price,String name,LocalDate expiryDate,boolean isPrescriptionRequired,String dosage){
-        super(productID, stockQuantity, price, name, expiryDate, isPrescriptionRequired);
+    public Drug (int productID, int stockQuantity,double price,String name,LocalDate expiryDate, String category,boolean isPrescriptionRequired,String dosage){
+        super(productID, stockQuantity, price, name, expiryDate, isPrescriptionRequired,category);
         setDosage(dosage);
     }
     
 //--------------------------------- setters ------------------------------------
     public void setDosage(String dosage) {
+        if (dosage == null || dosage.isBlank()) {
+            throw new IllegalArgumentException("Dosage cannot be empty.");
+        }
         this.dosage = dosage;
     }
     

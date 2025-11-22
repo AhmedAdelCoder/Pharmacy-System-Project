@@ -6,9 +6,10 @@ import java.util.List;
 
 
 public class Employee {
-    private String employeeID, name , username, password , role;
+    private final String employeeID;
+    String name , username, password , role;
     private double totalSales;
-    private List<Sale> salesHistory = new ArrayList<>();
+    private List<Sale> salesHistory ;
     
 //---------------------------------- Construcator ------------------------------
 
@@ -16,33 +17,36 @@ public class Employee {
         if (employeeID == null || name == null || username == null || password == null || role == null) {
             throw new IllegalArgumentException("Employee fields cannot be null.");
         }
-        setEmployeeID(employeeID);
+        this.employeeID = employeeID.trim();
         setName(name);
         setUsername(username);
         setPassword(password);
         setRole(role);
-        this.totalSales = 0;
+        this.totalSales = 0.0;
+        this.salesHistory = new ArrayList<>();
     }
 //--------------------- setter and getter --------------------------------------
 
-    public void setEmployeeID(String employeeID) {
-        this.employeeID = employeeID;
-    }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name.trim();
+    }
+    
+    public double getTotalSales() {
+        return totalSales;
     }
 
+
     public void setUsername(String username) {
-        this.username = username;
+        this.username = username.trim();
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = password.trim();
     }
 
     public void setRole(String role) {
-        this.role = role;
+        this.role = role.trim();
     }
     
     public String getEmployeeID() {
@@ -88,10 +92,10 @@ public class Employee {
             System.out.println("Error: Invalid sale amount.");
             return;
         }
-        double saleTotal = sale.getTotalAmount();
-        totalSales += saleTotal;
+        
+        totalSales +=sale.getTotalAmount();
         salesHistory.add(sale);
-        System.out.println("Sale processed successfully. Total Amount: " + saleTotal);
+        System.out.println("Sale processed successfully by " + name + ". Total: " + sale.getTotalAmount());
     }
 
     public void viewInventory(Inventory inventory, String drugName) {
@@ -104,24 +108,24 @@ public class Employee {
         for (Product p : inventory.getProductList()) {
             if (p.getName().equalsIgnoreCase(drugName)) {
                 System.out.println("drugName " + p.getName());
-                System.out.println("StockQuantity " + p.getStockQuantity());
+                System.out.println("Stock:  " + p.getStockQuantity());
+                System.out.println("Price: " + p.getPrice());
                 found = true;
                 break;
             }
         }
         if (!found) {
-            System.out.println("The medicine is unavailable.");
+            System.out.println("The medicine '" + drugName + "' is unavailable.");
         }
     }
+    
     
     public double calculateBonus(double bonusPercentage) {
         if (bonusPercentage < 0) {
             System.out.println("Error: Bonus percentage cannot be negative.");
             return 0;
-        }
-        
+        }     
         double bonus = totalSales * (bonusPercentage / 100);
-        System.out.println("Bonus for " + name + ": " + bonus);
         return bonus;
     }
 

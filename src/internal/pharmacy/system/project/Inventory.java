@@ -69,7 +69,7 @@ public class Inventory {
         return null;
     }
     
-    public void addDrugs(Product p) {
+    public void addProduct(Product p) {
         if (p == null) {
             System.out.println("Cannot add null product to inventory.");
             return;

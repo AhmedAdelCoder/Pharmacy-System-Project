@@ -7,7 +7,7 @@ import java.util.Map;
 public class Sale {
    private String saleID,employeeId;
    private LocalDate saleDate;
-   private HashMap<Product, Integer> soldItems= new HashMap<>();;
+   private HashMap<Product, Integer> soldItems= new HashMap<>();
    private double totalAmount;
    private String payment;
    
@@ -34,14 +34,23 @@ public class Sale {
 //------------------------------ setter ----------------------------------------
 
     public void setSaleID(String saleID) {
+        if (saleID == null || saleID.isBlank()) {
+            throw new IllegalArgumentException("Sale ID cannot be null or blank.");
+        }
         this.saleID = saleID;
     }
 
     public void setEmployeeId(String employeeId) {
+        if (employeeId == null || employeeId.isBlank()) {
+            throw new IllegalArgumentException("Employee ID cannot be null or blank.");
+        }
         this.employeeId = employeeId;
     }
 
     public void setSaleDate(LocalDate saleDate) {
+        if (saleDate == null) {
+            throw new IllegalArgumentException("Sale date cannot be null.");
+        }
         this.saleDate = saleDate;
     }
 
@@ -50,6 +59,9 @@ public class Sale {
     }
 
     public void setTotalAmount(double totalAmount) {
+        if (totalAmount < 0) {
+            throw new IllegalArgumentException("Total amount cannot be negative.");
+        }
         this.totalAmount = totalAmount;
     }
     
@@ -104,13 +116,12 @@ public class Sale {
 
     
     public void calculateTotal() {
-    double totalBeforeDiscount = 0.0;
-    for (Map.Entry<Product, Integer> e : soldItems.entrySet()) {
-        totalBeforeDiscount += e.getKey().getPrice() * e.getValue();
+        double totalBeforeDiscount = 0.0;
+        for (Map.Entry<Product, Integer> e : soldItems.entrySet()) {
+            totalBeforeDiscount += e.getKey().getPrice() * e.getValue();
+        }
+        totalAmount =applyDiscount(totalBeforeDiscount) ;   
     }
-    totalAmount =applyDiscount(totalBeforeDiscount) ;
-    
-}
     
     public double getTotalBeforeDiscount() {
     double total = 0.0;

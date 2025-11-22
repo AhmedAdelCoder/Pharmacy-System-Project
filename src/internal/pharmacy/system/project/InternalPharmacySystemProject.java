@@ -2,9 +2,9 @@
 package internal.pharmacy.system.project;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.sql.Connection;
 
 
 public class InternalPharmacySystemProject {
@@ -14,49 +14,82 @@ public class InternalPharmacySystemProject {
 
         Inventory inventory = new Inventory();
 
-        // ===== 2. إنشاء منتجات =====
-        Product panadol = new Product(1, 100, 300.0, "Panadol", LocalDate.now().plusMonths(12), false);
-        Product augmentin = new Product(2, 50, 80.0, "Augmentin", LocalDate.now().plusMonths(6), true);
-        OtherItem shampoo = new OtherItem(3, 20, 45.5, "Head&Shoulders", LocalDate.now().plusYears(1), false, "Hair Care");
+// ===== Creating drug products =====
+        Product panadol = new Product(1, 100, 30.0, "Panadol", LocalDate.now().plusMonths(12), false, "Medicine");
+        Product augmentin = new Product(2, 50, 80.0, "Augmentin", LocalDate.now().plusMonths(6), true, "Medicine");
+        Product ibuprofen = new Product(4, 200, 25.0, "Ibuprofen", LocalDate.now().plusMonths(18), false, "Medicine");
+        Product cetirizine = new Product(5, 80, 1005.0, "Cetirizine", LocalDate.now().plusMonths(24), false, "Medicine");
 
-        inventory.addDrugs(panadol);
-        inventory.addDrugs(augmentin);
-        inventory.addDrugs(shampoo);
+        // ===== Creating other items =====
+        Product shampoo = new Product(3, 20, 405.5, "Head&Shoulders", LocalDate.now().plusYears(1), false, "Hair Care");
+        Product toothpaste = new Product(6, 30, 50.0, "Colgate", LocalDate.now().plusYears(2), false, "Oral Care");
+        Product faceCream = new Product(7, 15, 1220.0, "Nivea Face Cream", LocalDate.now().plusYears(1), false, "Skin Care");
+
+        inventory.addProduct(panadol);
+        inventory.addProduct(augmentin);
+        inventory.addProduct(shampoo);
+        inventory.addProduct(faceCream);
 
         System.out.println("\n=== INVENTORY ===");
         inventory.displayAll();
 
-       
+//AddDistributingCompany
         DistributingCompany company1 = new DistributingCompany("C001", "MedLife Pharma", "info@medlife.com", "Cairo");
         company1.addProduct(panadol);
         company1.addProduct(augmentin);
 
-            
-        company1.supplyStock(inventory, 1, 50);      
+        DistributingCompany company2 = new DistributingCompany("C002", "HealthyMed Co", "contact@healthymed.com", "Giza");
+        company2.addProduct(ibuprofen);
+        company2.addProduct(cetirizine);
 
-        Employee emp1 = new Employee("E001", "Ahmed", "ahmedUser", "1234", "Pharmacist");
-        Employee emp2 = new Employee("E002", "Omar", "omarUser", "5678", "Cashier");
-        Manager manager = new Manager("M001", "Sara", "saraAdmin", "admin123", "Manager");
+        company1.supplyStock(inventory, 1, 50);
+        company2.supplyStock(inventory, 4, 100); 
+        company2.supplyStock(inventory, 5, 50);
+
+        Employee emp1 = new Employee("E001", "Abdullah", "AbdullahUser", "1234", "Pharmacist");
+        Employee emp2 = new Employee("E002", "Ali", "AliUser", "5678", "Pharmacist");
+        Manager manager = new Manager("M001", "Ahmed Adel", "AhmedAdmin", "admin123", "Manager");
 
         manager.addEmployee(emp1);
         manager.addEmployee(emp2);
 
         manager.addCompany(company1);
+        manager.addCompany(company2);
 
         System.out.println("\n=== LOGIN TEST ===");
-        emp1.login("ahmedUser", "1234");
+        emp1.login("AbdullahUser", "1234");
+        emp2.login("AliUser", "5678");
 
-        HashMap<Product, Integer> soldItems = new HashMap<>();
-        soldItems.put(panadol, 3);
-        soldItems.put(shampoo, 1);
+        HashMap<Product, Integer> soldItems1 = new HashMap<>();
+        soldItems1.put(panadol, 8);
+        soldItems1.put(shampoo, 4);
 
-        Sale sale1 = new Sale("S001", emp1.getEmployeeID(), LocalDate.now(), soldItems, 0.0, "Cash");
- 
+        HashMap<Product, Integer> soldItems2 = new HashMap<>();
+        soldItems2.put(augmentin, 5);
+        soldItems2.put(faceCream, 2);
+
+        HashMap<Product, Integer> soldItems3 = new HashMap<>();
+        soldItems3.put(ibuprofen, 10);
+        soldItems3.put(toothpaste, 3);
+
+        Sale sale1 = new Sale("S001", emp1.getEmployeeID(), LocalDate.now(), soldItems1, 0.0, "Cash");
+        Sale sale2 = new Sale("S002", emp2.getEmployeeID(), LocalDate.now(), soldItems2, 0.0, "Credit Card");
+        Sale sale3 = new Sale("S003", emp2.getEmployeeID(), LocalDate.now(), soldItems3, 0.0, "Mobile Payment");
+
+        
         sale1.calculateTotal();     
-        emp1.processSale(sale1);     
+        emp1.processSale(sale1);
+        
+        sale2.calculateTotal();
+        emp2.processSale(sale2);
+
+        sale3.calculateTotal();
+        emp2.processSale(sale3);
 
         System.out.println("\n=== RECEIPT ===");
         System.out.println(sale1.printReceipt());
+        System.out.println(sale2.printReceipt());
+        System.out.println(sale3.printReceipt());
         
 
         System.out.println("\n=== MANAGER REPORTS ===");
@@ -65,17 +98,62 @@ public class InternalPharmacySystemProject {
         manager.generateReport("sales");
 
         List<String> orderList = List.of("Panadol", "Augmentin");
-        CustomerRecords customer1 = new CustomerRecords(101, "Ali", "01012345678", "Cairo", orderList, 2000.0, "2025-10-15");
+        CustomerRecords customer1 = new CustomerRecords(101, "Mohamed", "01012345678", "Cairo", orderList, 20000.0, "2025-10-15");
 
         System.out.println("\n=== CUSTOMER ===");
         System.out.println("Customer Name: " + customer1.getName());
         System.out.println("Amount Due: " + customer1.getAmountDue());
         customer1.payDueAmount(100);
         
+        System.out.println("========================================");
+         Connection conn = DatabaseConnection.getConnection();
 
+        if (conn != null) {
+            System.out.println("True");
+        } else {
+            System.out.println("Fasle");
+        }
+        System.out.println("===========================================");
+        
     }
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
