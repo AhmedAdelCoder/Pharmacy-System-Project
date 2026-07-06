@@ -40,7 +40,7 @@ This project is a complete internal pharmacy management system that allows you t
 
 The system design is documented with a UML diagram illustrating the relationships between the core classes (Employee, Manager, Product, Drug, Sale, Customer, etc.).
 
-![UML Diagram](image/Pharmacy%20project.jpeg)
+![UML Diagram](image/pharmacy-uml.jpeg)
 
 ---
 
