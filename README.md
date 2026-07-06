@@ -20,7 +20,7 @@ This project is a complete internal pharmacy management system that allows you t
 ## 🖼️ Screenshots
 
 ### Login Screen
-![Login](image/Screenshot%202026-07-06%20143120.png)
+![Login Screen](image/Screenshot%202026-07-06%20143120.png)
 
 ### Sales Screen
 ![Sales](image/Screenshot%202026-07-06%20143835.png)
